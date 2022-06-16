@@ -8,7 +8,6 @@ import { emailCheck } from '../utils'
 import Layout from '../components/layout'
 
 export default function Login() {
-
   const {
     register,
     handleSubmit,
@@ -54,10 +53,12 @@ export default function Login() {
 
         <div className='mt-6 flex flex-col gap-2 w-full'>
           <FormButton type='submit'>로그인</FormButton>
-          <Link href='/api/auth/signup'>
-            <FormButton bgColor='bg-white' border='border border-theme1' textColor='text-theme1'>
-              회원가입
-            </FormButton>
+          <Link href='/join'>
+            <a>
+              <FormButton bgColor='bg-white' border='border border-theme1' textColor='text-theme1'>
+                회원가입
+              </FormButton>
+            </a>
           </Link>
         </div>
       </form>

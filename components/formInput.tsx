@@ -22,6 +22,7 @@ export default function FormInput({
     <div className='w-full'>
       {label ? <p className='mx-1 my-1'>{label}</p> : null}
       <input
+        ref={null}
         type={type}
         placeholder={placeholder || ''}
         {...register}
