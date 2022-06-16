@@ -6,6 +6,7 @@ import FormButton from '../components/formButton'
 import FormInput from '../components/formInput'
 import { emailCheck } from '../utils'
 import Layout from '../components/layout'
+import axios from 'axios'
 
 export default function Login() {
   const {
@@ -15,7 +16,17 @@ export default function Login() {
   } = useForm<LoginForm>({ mode: 'onChange' })
 
   const onValid: SubmitHandler<LoginForm> = (data: LoginForm) => {
-    console.log(data)
+    axios({
+      method: 'post',
+      url: `${APP_DOMAIN}/api/login`,
+      data,
+      headers: contentTypeHeaders,
+    })
+      .then((res: AxiosResponse) => {
+        localStorage.setItem('token', JSON.stringify(res.data.result.token))
+        navigate('/', { replace: true })
+      })
+      .catch(apiErrorHandler)
   }
 
   return (
