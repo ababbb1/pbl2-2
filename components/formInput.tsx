@@ -10,14 +10,7 @@ interface InputProps {
   invalid?: any
 }
 
-export default function FormInput({
-  type,
-  label,
-  placeholder,
-  register,
-  style,
-  invalid,
-}: InputProps) {
+export default function FormInput({ type, label, placeholder, register, invalid }: InputProps) {
   return (
     <div className='w-full'>
       {label ? <p className='mx-1 my-1'>{label}</p> : null}

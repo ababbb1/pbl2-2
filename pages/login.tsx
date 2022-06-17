@@ -78,13 +78,13 @@ export async function getServerSideProps(ctx: GetSessionParams) {
     return {
       redirect: {
         permanent: false,
-        destination: '/'
-      }
+        destination: '/',
+      },
     }
 
   return {
     props: {
-      session: await getSession(ctx)
-    }
+      session,
+    },
   }
 }

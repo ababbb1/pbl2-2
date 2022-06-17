@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
+    "@types/jwt-decode": "^3.1.0",
     "axios": "^0.27.2",
+    "jwt-decode": "^3.1.2",
     "next": "12.1.6",
     "next-auth": "^4.5.0",
     "prettier": "^2.7.1",

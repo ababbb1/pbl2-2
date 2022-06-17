@@ -2,7 +2,8 @@ import axios from 'axios'
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { API_DOMAIN, contentTypeHeaders } from '../../../libs/client'
-import type { JWT } from 'next-auth/jwt'
+import { decode, JWT } from 'next-auth/jwt'
+import jwt_decode from 'jwt-decode'
 
 //토큰을 받아서 업데이트된 새로운 'accessToken' 토큰과 'accessTokenExpires'를 반환합니다.
 //오류가 발생하면 이전 토큰과 오류 속성을 반환합니다.
@@ -27,7 +28,7 @@ async function refreshAccessToken(tokenObj: JWT) {
       refreshToken: refreshedToken.refresh_token ?? tokenObj.refreshToken,
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
 
     return {
       ...tokenObj,
@@ -42,8 +43,8 @@ export default NextAuth({
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        email: { label: 'email', type: 'text', placeholder: 'email' },
-        password: { label: 'password', type: 'password', placeholder: 'password' },
+        email: { label: 'email', type: 'text' },
+        password: { label: 'password', type: 'password' },
       },
       async authorize(credentials, req) {
         try {
@@ -54,8 +55,7 @@ export default NextAuth({
             headers: contentTypeHeaders,
           })
 
-          const result = res.data.result
-          if (result.accessToken) return result
+          if (res?.data.result.success) return res.data.result
           else return null
         } catch (e: any) {
           throw Error(e)
@@ -84,7 +84,6 @@ export default NextAuth({
       return Promise.resolve(token)
     },
     session: async ({ session, token }) => {
-      console.log(token)
       session.accessToken = token.accessToken
       session.accessTokenExpiresAt = token.accessTokenExpiresAt
       session.error = token.error

@@ -5,7 +5,6 @@ export async function middleware(req: any) {
   // const url = await req.nextUrl.clone()
   // const path = url.pathname
   // const session = await getSession({ req })
-
   // if (path === '/' || path === '/login' || path === '/join') {
   //   if (session) return NextResponse.redirect(`${url.origin}`)
   // } else {

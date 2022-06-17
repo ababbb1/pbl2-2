@@ -5,16 +5,14 @@ import FormInput from '../components/formInput'
 import ErrorMessage from '../components/errorMessage'
 import FormButton from '../components/formButton'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 import Layout from '../components/layout'
+import { apiErrorHandler, API_DOMAIN, contentTypeHeaders } from '../libs/client'
+import axios from 'axios'
+import { getSession, GetSessionParams } from 'next-auth/react'
 
 export default function Join() {
   const isAuth = false
   const router = useRouter()
-
-  useEffect(() => {
-    isAuth && router.replace('/')
-  }, [])
 
   const {
     register,
@@ -23,7 +21,17 @@ export default function Join() {
   } = useForm<JoinForm>({ mode: 'onBlur' })
 
   const onValid: SubmitHandler<JoinForm> = (data: JoinForm) => {
-    console.log(data)
+    axios({
+      method: 'post',
+      url: `${API_DOMAIN}/api/register`,
+      data,
+      headers: contentTypeHeaders,
+    })
+      .then(() => {
+        alert('회원가입 성공')
+        router.replace('/login')
+      })
+      .catch(apiErrorHandler)
   }
 
   return (
@@ -88,4 +96,21 @@ export default function Join() {
       </form>
     </Layout>
   )
+}
+
+export async function getServerSideProps(ctx: GetSessionParams) {
+  const session = await getSession(ctx)
+  if (session)
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    }
+
+  return {
+    props: {
+      session,
+    },
+  }
 }

@@ -26,5 +26,5 @@ export function useAuth(shouldRedirect: boolean = true) {
     }
   }, [session])
 
-  return {isAuth: isAuthenticated, loading: status === 'loading'}
+  return { isAuth: isAuthenticated, loading: status === 'loading' }
 }
