@@ -14,7 +14,7 @@ const Mypage = ({ session }: { session: Session }) => {
   return (
     <Layout>
       <div className='w-full flex flex-col items-center gap-10 py-16'>
-      <span>{`${user.nickname} 님`}</span>
+        <span>{`${user.nickname} 님`}</span>
         <div className='w-24'>
           <button
             onClick={logoutHandler}
