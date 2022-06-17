@@ -1,12 +1,12 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import ErrorMessage from '../components/errorMessage'
-import { LoginForm } from '../types'
+import { LoginForm } from '../libs/types'
 import Link from 'next/link'
 import FormButton from '../components/formButton'
 import FormInput from '../components/formInput'
-import { emailCheck } from '../utils'
+import { emailCheck } from '../libs/utils'
 import Layout from '../components/layout'
-import axios from 'axios'
+import { signIn, getSession, GetSessionParams } from 'next-auth/react'
 
 export default function Login() {
   const {
@@ -15,18 +15,13 @@ export default function Login() {
     formState: { errors },
   } = useForm<LoginForm>({ mode: 'onChange' })
 
-  const onValid: SubmitHandler<LoginForm> = (data: LoginForm) => {
-    axios({
-      method: 'post',
-      url: `${APP_DOMAIN}/api/login`,
-      data,
-      headers: contentTypeHeaders,
+  const onValid: SubmitHandler<LoginForm> = async (data: LoginForm) => {
+    signIn('credentials', {
+      callbackUrl: '/',
+      redirect: true,
+      email: data.email,
+      password: data.password,
     })
-      .then((res: AxiosResponse) => {
-        localStorage.setItem('token', JSON.stringify(res.data.result.token))
-        navigate('/', { replace: true })
-      })
-      .catch(apiErrorHandler)
   }
 
   return (
@@ -75,4 +70,21 @@ export default function Login() {
       </form>
     </Layout>
   )
+}
+
+export async function getServerSideProps(ctx: GetSessionParams) {
+  const session = await getSession(ctx)
+  if (session)
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/'
+      }
+    }
+
+  return {
+    props: {
+      session: await getSession(ctx)
+    }
+  }
 }

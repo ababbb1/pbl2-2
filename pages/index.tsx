@@ -1,5 +1,6 @@
-import type { NextPage } from 'next'
+import type { NextPage, NextPageContext } from 'next'
 import Layout from '../components/layout'
+import { useAuth } from '../libs/hooks'
 
 const Home: NextPage = () => {
   return (

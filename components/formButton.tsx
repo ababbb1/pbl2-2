@@ -1,4 +1,4 @@
-import { cls } from '../utils'
+import { cls } from '../libs/utils'
 
 interface Props {
   children: string

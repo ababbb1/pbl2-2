@@ -1,5 +1,5 @@
 import { UseFormRegisterReturn } from 'react-hook-form'
-import { cls } from '../utils'
+import { cls } from '../libs/utils'
 
 interface InputProps {
   type: React.HTMLInputTypeAttribute | undefined

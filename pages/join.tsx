@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { emailCheck } from '../utils'
-import { JoinForm } from '../types'
+import { emailCheck } from '../libs/utils'
+import { JoinForm } from '../libs/types'
 import FormInput from '../components/formInput'
 import ErrorMessage from '../components/errorMessage'
 import FormButton from '../components/formButton'
