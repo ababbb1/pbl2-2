@@ -3,18 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "prettier --write --ignore-path .gitignore . && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --check --ignore-path .gitignore .",
+    "format:fix": "prettier --write --ignore-path .gitignore ."
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
+    "@types/jwt-decode": "^3.1.0",
     "axios": "^0.27.2",
+    "jwt-decode": "^3.1.2",
     "next": "12.1.6",
+    "next-auth": "^4.5.0",
+    "prettier": "^2.7.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.32.1"
+    "react-hook-form": "^7.32.1",
+    "react-loader-spinner": "^5.1.5"
   },
   "devDependencies": {
     "@types/node": "18.0.0",

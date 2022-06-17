@@ -1,4 +1,4 @@
-import { cls } from '../utils'
+import { cls } from '../libs/utils'
 
 interface Props {
   children: string
@@ -17,6 +17,7 @@ export default function FormButton({
 }: Props) {
   return (
     <button
+      ref={null}
       type={type}
       className={`${cls('w-full h-12 rounded-md select-none', bgColor, border, textColor)}`}
     >

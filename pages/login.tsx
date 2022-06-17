@@ -1,22 +1,27 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import ErrorMessage from '../components/errorMessage'
-import { LoginForm } from '../types'
+import { LoginForm } from '../libs/types'
 import Link from 'next/link'
 import FormButton from '../components/formButton'
 import FormInput from '../components/formInput'
-import { emailCheck } from '../utils'
+import { emailCheck } from '../libs/utils'
 import Layout from '../components/layout'
+import { signIn, getSession, GetSessionParams } from 'next-auth/react'
 
 export default function Login() {
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginForm>({ mode: 'onChange' })
 
-  const onValid: SubmitHandler<LoginForm> = (data: LoginForm) => {
-    console.log(data)
+  const onValid: SubmitHandler<LoginForm> = async (data: LoginForm) => {
+    signIn('credentials', {
+      callbackUrl: '/',
+      redirect: true,
+      email: data.email,
+      password: data.password,
+    })
   }
 
   return (
@@ -54,13 +59,32 @@ export default function Login() {
 
         <div className='mt-6 flex flex-col gap-2 w-full'>
           <FormButton type='submit'>로그인</FormButton>
-          <Link href='/api/auth/signup'>
-            <FormButton bgColor='bg-white' border='border border-theme1' textColor='text-theme1'>
-              회원가입
-            </FormButton>
+          <Link href='/join'>
+            <a>
+              <FormButton bgColor='bg-white' border='border border-theme1' textColor='text-theme1'>
+                회원가입
+              </FormButton>
+            </a>
           </Link>
         </div>
       </form>
     </Layout>
   )
+}
+
+export async function getServerSideProps(ctx: GetSessionParams) {
+  const session = await getSession(ctx)
+  if (session)
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/',
+      },
+    }
+
+  return {
+    props: {
+      session,
+    },
+  }
 }

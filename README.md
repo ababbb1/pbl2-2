@@ -1,34 +1,130 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 라이브러리와 프레임워크
 
-## Getting Started
+프레임워크와 라이브러리는 애플리케이션을 개발하는데 있어 쉽고 빠른 생산성을 위해 사용한다는 공통점을 가지고 있습니다.  
+둘의 가장 큰 차이점은 흐름을 누가 가지고 있느냐에 있습니다.  
+라이브러리는 사용자가 작성한 프로그램이 외부 라이브러리의 코드를 호출해 이용하지만  
+프레임워크는 사용자가 작성한 코드를 호출합니다. 이를 "제어의 반전" 이라고 합니다.
 
-First, run the development server:
+### 프레임워크의 장점
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- 가이드를 제공함으로써 프로그램을 체계적으로 관리할 수 있습니다.
+- 기본적인 설계와 라이브러리를 제공하여 개발 속도를 향상시킵니다.
+- 코드의 재사용성이 높고 확정성이 좋습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 프레임워크의 단점
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- 각 프레임워크에 따른 별도의 학습을 필요로 합니다.
+- 자유롭고 유연한 개발이 어렵습니다.
+- 프로젝트의 용량이 증가합니다.
+  <br/>
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# Next.js
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Next.js는 Vercel이라는 팀에서 만든 React 프레임워크 입니다.  
+따로 설정을 해주지 않고도 SSR(서버 사이드 렌더링), SEO(검색 엔진 최적화)부터 TypeScript까지 생산에 필요한 많은 기능들을 제공하는 강력한 프레임워크 입니다.  
+<br/>
 
-## Learn More
+SSR이 Next.js를 사용하는 가장 중요한 이유입니다.  
+SSR에 대해 알기 위해서는 반대의 개념인 CSR과 SPA에 대해 알아야합니다.
 
-To learn more about Next.js, take a look at the following resources:
+## SPA(싱글 페이지 애플리케이션)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+전통적인 페이지 로딩 방식의 경우 사용자가 요청을 보내고 응답을 받을 때 마다 페이지가 reload되기 때문에 비용적인 측면에서 손해를 볼 수 밖에 없습니다.  
+SPA는 필요한 정적 리소스를 최초에 한번 다운로드 받은 후 변경이 있을 때 마다 페이지 전체를 reload하지 않고 변경된 부분만 갱신됩니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## CSR(클라이언트 사이드 렌더링)
 
-## Deploy on Vercel
+CSR의 동작 순서는 아래와 같습니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. 서버에서 브라우저로 응답을 보냅니다.
+2. 브라우저가 JS를 다운로드 받습니다.
+3. 브라우저가 React를 실행합니다.
+4. 페이지가 보이고 상호작용을 할 수 있게 됩니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+CSR은 SSR에 비해서 초기에 전송되는 페이지(비어있는 HTML 파일)의 로딩 속도는 빠르지만 서비스에서 필요한 데이터를 클라이언트(브라우저)에서 추가로 요청하여 재구성해야 하기 때문에 전제적인 페이지 완료 시점은 SSR보다 느려집니다.
+<br/>
+
+#### CSR의 장점
+
+1. 컴포넌트 단위로 UI를 구성하기 때문에 재사용에 용이하고 중복을 줄일 수 있습니다.
+2. 페이지를 전환이 부드럽습니다.
+3. 변경된 사항만 Server에 요청을 보내면 되기 때문에 비용적인 측면에서 효율적입니다.
+
+#### CSR의 단점
+
+1. 초기 페이지 로딩이 오래걸립니다.
+1. 검색 엔진 최적화가 어렵습니다.
+
+## SSR(서버 사이드 렌더링)
+
+SSR의 동작 순서는 아래와 같습니다.
+
+1. 서버는 렌더링할 준비가 된 HTML을 응답을 브라우저에게 보냅니다.
+2. 브라우저는 페이지를 렌더링하고 이 때 페이지를 볼 수 있습니다.
+3. 브라우저가 JS를 다운로드 받습니다.
+4. 브라우저가 React를 실행합니다.
+5. 페이지를 상호작용 할 수 있습니다.
+
+SSR을 사용하면 모든 데이터가 매핑된 서비스 페이지를 Client(브라우저)에게 바로 보여줄 수 있습니다. 서버를 이용해서 페이지를 구성하기 때문에 클라이언트에서 구성하는 CSR보다 페이지를 구성하는 속도는 늦어지지만 전체적으로 사용자에게 보여주는 콘텐츠 구성이 완료되는 시점은 빨라진다는 장점이 있습니다.
+<br/>
+
+#### SSR의 장점
+
+1. CSR에 비해 렌더링 속도가 빨라 사용자가 기다리는 로딩 시간이 짧습니다.
+2. 검색엔진 최적화가 쉽습니다.
+
+#### SSR의 단점
+
+1. CSR에 비해 서버에 부하가 많습니다.
+2. 페이지 전환 시 화면이 깜빡 거린다는 느낌을 받을 수 있습니다.
+   <br/>
+
+### CSR과 SSR의 차이
+
+CSR에서는 클라이언트가 HTML JS React 모두 로딩을 하고 나서 페이지가 보이지만 SSR에서는 Server가 Client에게 렌더링 될 HTML을 보내주기 때문에 더 빨리 보이게 됩니다.
+
+### View와의 상호작용
+
+CSR: 최종적으로 로딩이 끝난 후 View와 상호작용이 동시에 가능합니다.
+SSR: 페이지가 먼저 보여지게 되고 JS와 React의 로딩이 끝난 후 상호작용이 가능합니다.
+<br/>
+
+## SEO (검색 엔진 최적화)
+
+앞서 SSR이 Next.js를 사용하는 가장 큰 이유라고 했습니다.  
+왜냐하면 검색엔진 최적화를 하기 위해서 SSR이 중요한 역할을 하기 때문입니다.
+<br/>
+
+CSR방식은 검색엔진에 노출이 잘 되지 않습니다.  
+검색엔진 봇들은 JavaScript를 해석하기 힘들기 때문에 HTML에서 크롤링하게 됩니다. CSR 방식은 Client 측에서 페이지를 구성하기 전에 HTML에 아무것도 없으므로 데이터를 수집하지 못해 검색엔진에 노출이 어려운 것 입니다.  
+<br/>
+
+Next.js는 SSR을 지원하는 React 프레임워크입니다.  
+React는 SPA를 만들기 위한 라이브러리인데 CSR방식의 SPA에서 Next.js는 아래와 같은 방식으로 SSR이 동작합니다.
+<br/>
+
+### Next.js의 작동방식
+
+1. 사용자가 초기에 Server에 페이지 접속을 요청한 경우 SSR방식으로 렌더링 될 HTML을 보냅니다.
+2. 브라우저에서 JS를 다운로드 받고 React를 실행합니다.
+3. 사용자가 페이지와 상호작용을 하며 다른 페이지로 이동할 경우 CSR방식으로 Server가 아닌 브라우저에서 처리합니다.
+   <br/>
+   <br/>
+
+기존 CRA와의 구현 과정에서의 차이점을 직접 알아보기 위해 이 프로젝트는 Next.js를 사용했습니다.
+
+## JWT
+
+기존 프로젝트에서는 JWT 토큰을 로컬스토리지에 저장했습니다. 하지만 이 방법은 XSS 공격에 취약하다는 단점이 있습니다.  
+클라이언트에서 생성한 쿠키에 저장하는 방법도 XSS 공격에 취약합니다. HTTPOnly 쿠키(서버에서 생성하는 쿠키) 또한 [CSRF] (https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) 공격에 취약합니다.  
+<br/>
+
+[클라이언트에서 JWT를 처리하기 위한 방법(GraphQL)] (https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/)
+<br/>
+
+JWT 토큰은 짧은 주기로(5 ~ 10분) 재생성 해야하는 access 토큰과 access 토큰 재생성 요청을 하기 위한 refresh 토큰(1 ~ 24시간)으로 나누어서 관리해야 합니다.
+<br/>
+
+이 프로젝트에서는 Next.js를 만든 Vercel팀에서 제공하는 next-auth 라이브러리를 사용했습니다.  
+next-auth를 사용하면 인기 있는 많은 서비스들(구글, 네이버, 카카오 등)의 소셜 로그인을 쉽게 구현할 수 있습니다.
+next-auth에서는 기본적으로 jwe(JSON 웹 암호화)를 사용합니다.
