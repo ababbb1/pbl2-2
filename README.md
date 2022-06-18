@@ -116,10 +116,10 @@ React는 SPA를 만들기 위한 라이브러리인데 CSR방식의 SPA에서 Ne
 ## JWT
 
 기존 프로젝트에서는 JWT 토큰을 로컬스토리지에 저장했습니다. 하지만 이 방법은 XSS 공격에 취약하다는 단점이 있습니다.  
-클라이언트에서 생성한 쿠키에 저장하는 방법도 XSS 공격에 취약합니다. HTTPOnly 쿠키(서버에서 생성하는 쿠키) 또한 [CSRF] (https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) 공격에 취약합니다.  
+클라이언트에서 생성한 쿠키에 저장하는 방법도 XSS 공격에 취약합니다. HTTPOnly 쿠키(서버에서 생성하는 쿠키) 또한 [CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html) 공격에 취약합니다.  
 <br/>
 
-[클라이언트에서 JWT를 처리하기 위한 방법(GraphQL)] (https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/)
+[클라이언트에서 JWT를 처리하기 위한 방법(GraphQL)](https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/)
 <br/>
 
 JWT 토큰은 짧은 주기로(5 ~ 10분) 재생성 해야하는 access 토큰과 access 토큰 재생성 요청을 하기 위한 refresh 토큰(1 ~ 24시간)으로 나누어서 관리해야 합니다.
